@@ -1,6 +1,19 @@
 <template name="somePage">
   <div class="some-page">
     <p>Some page</p>
-    <a href="{{pathFor 'anotherPage'}}">Go to another page</a>
+    {{#if param}}
+      <p>Param: {{param}}</p>
+    {{/if}}
+    {{#if query}}
+      <p>Query string(s):</p>
+      <ul>
+        {{#each query}}
+          <li>{{this.key}}: {{this.value}}</li>
+        {{/each}}
+      </ul>
+    {{/if}}
+    {{#if hash}}
+      <p>Hash string: {{hash}}</p>
+    {{/if}}
   </div>
 </template>

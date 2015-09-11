@@ -17,6 +17,7 @@ The application is created to help quickly bootstrap a meteor application. It ha
 - The ```lib``` top-level directory is loaded **before any other directory** (files inside are accessible both on the client and the server).
 - Files in the ```client``` top-level directory are only accessible on the **client**.
 - Files in the ```server``` top-level directory are only accessible on the **server**.
+- If using ```Meteor.isServer``` in a non ```server``` top-level directory, **the code will still be accessible on the client**.
 - Files in the ```public``` top-level directory are served as-is to the client (no need to include ```public``` when referencing a file, ```/file.ext``` is enough).
 - Files in the ```private``` top-level directory are only accessible from **server-code** via the ```Assets``` API. Files in this directory are **not autoloaded by Meteor**.
 - Files in the ```tests``` top-level directory are not loaded anywhere.
@@ -26,6 +27,11 @@ The application is created to help quickly bootstrap a meteor application. It ha
 - Files are automatically loaded, no need for imports.
 - ```<head>``` and ```<body>``` tags that Meteor founds in the project are concatenated.
 - ```*.less``` files are automatically compiled to ```*.css``` files and attached to the webapp. To prevent this default behavior, we need to use the ```.import.less``` extension for our ```less``` files.
+
+### Routing
+- By default routes are defined on the client.
+- Routes should not be defined for both sides (both sided source is accessible from the client).
+- A good practice is to keep client side routes in the ```client/routes``` directory, server side routes in the ```server/routes``` prefixed with a ```{ where: 'server' }``` object (this way server side routes are protected and the app can behave more like a SPA app thanks to the client side routing).
 
 ### Testing
 - [Velocity](https://velocity.readme.io/) is Meteors officially supported testing framework (Velocity by on its own does not include any testing libraries).
@@ -49,8 +55,7 @@ The application is created to help quickly bootstrap a meteor application. It ha
 - Utility files should go in the ```views/utils``` folder like: ```commons.html```, ```utils.js```, ```variables.less```.
 
 ### Routing
-- Route definitions go in the appropriate ```/routes``` directory (depending on where the route is needed: client, server or both).
-- To have SPA like nature the routes should be defined on the client. Server side routes could be used for API endpoints or other server-only activities.
+- Route definitions go in the appropriate ```/routes``` directory (depending on where the route is needed: client, server).
 - Routes should only contain these characters: ```A-Z a-z 0-9 - . _ ~ : / ? # [ ] @ ! $ & ' ( ) * + , ; =```. Everything else must be url-encoded
 - If a route part needs to have space, it should be handled with a hyphen: ```page/need-some-space/whoho```.
 
