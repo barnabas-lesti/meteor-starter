@@ -7,6 +7,7 @@ The application is created to help quickly bootstrap a meteor application. It ha
 - The [autopublish](https://atmospherejs.com/meteor/autopublish) and [insecure](https://atmospherejs.com/meteor/insecure) packages have been removed.
 - CSS precompilation is done with [less](https://atmospherejs.com/meteor/less).
 - Router of the app is [iron:router](https://atmospherejs.com/iron/router).
+- Unit testing is done via [sanjo:jasmine](https://atmospherejs.com/sanjo/jasmine) (reporting: [velocity:html-reporter](https://atmospherejs.com/velocity/html-reporter)).
 
 ## Meteor behavior
 ### File structure
@@ -25,6 +26,9 @@ The application is created to help quickly bootstrap a meteor application. It ha
 - Files are automatically loaded, no need for imports.
 - ```<head>``` and ```<body>``` tags that Meteor founds in the project are concatenated.
 - ```*.less``` files are automatically compiled to ```*.css``` files and attached to the webapp. To prevent this default behavior, we need to use the ```.import.less``` extension for our ```less``` files.
+
+### Testing
+- [Velocity](https://velocity.readme.io/) is Meteors officially supported testing framework (Velocity by on its own does not include any testing libraries).
 
 ***
 
@@ -52,3 +56,9 @@ The application is created to help quickly bootstrap a meteor application. It ha
 
 ### Collections
 - Collection definitions go in the appropriate ```/collections``` directory (depending on where the collection is needed: client, server or both).
+
+### Testing
+- The app uses [Jasmine](http://jasmine.github.io/) as a testing library.
+- Tests run automatically while the app runs in development mode locally.
+- Tests and Velocity are excluded automatically when we build our app for production.
+- Test go in the ```tests/jasmine``` directory in the appropriate directory (for example: client unit tests go in ```/client/unit```).
