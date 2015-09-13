@@ -1,29 +1,34 @@
+// Router global configuration.
 Router.configure({
-  layoutTemplate: 'main'
+  layoutTemplate: 'main',
+  // Prealoder template to render when using 'waitOn' for subscriptions.
+  loadingTemplate: 'preloader',
 });
 
-// given the url: '/some-page?q=some-query#some-hash' (query and hash is optional)
+// Use the 'authorize' plugin for the specified route only.
+Router.plugin('authorize', {
+  only: [
+    'someProtectedPage'
+  ]
+  // except: [
+  //   'someNotProtectedPage'
+  // ]
+});
+
+// A basic routes
+Router.route('/', {
+  name: 'home',
+  template: 'home'
+});
+
 Router.route('/some-page', {
   name: 'somePage',
-  action: function() {
-    var queryArray = Object.keys(this.params.query).map(function(k, v) {
-      return { key: k, value: v };
-    });
-    this.render('somePage', {
-      data: {
-        query: queryArray,
-        hash: this.params.hash
-      }
-    });
-  }
+  // If not specified, the route would use 'SomePageController'.
+  controller: 'SomeController'
 });
 
-Router.route('/some-page/:param', {
-  action: function() {
-    this.render('somePage', {
-      data: {
-        param: this.params.param
-      }
-    });
-  }
+// Route with a paramater accessed via 'this.params.someParam'.
+Router.route('/some-page/:someParam', {
+  name: 'somePageWithParam',
+  controller: 'SomeController'
 });

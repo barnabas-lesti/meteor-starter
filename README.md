@@ -39,28 +39,33 @@ The application is created to help quickly bootstrap a meteor application. It ha
 ***
 
 ## Application conventions (personal preference)
-- File names and string literals (classes, id-s, page names, etc.) should follow the ```name-like-this``` hyphened pattern. Templage names are considered JS objects, so this does not apply to them.
-- Basic object names in the app should follow the lower camel case pattern: ```someBasicOnject```.
+- Basic object names should follow the lower camel case pattern: ```someBasicOnject```.
 - Classes and other higher elevation objects should be upper camel cased: ```SomeGodlikeCreation```.
+- Non objects, file names and string literals (classes, id-s, page names, etc.) should follow a hyphened pattern: ```name-like-this```.
+- Object structure in a string literal should use dot notation: ```name="someObj.someProp"```.
 
 ### Templates
 - Templates and their controllers and style files go in the ```client/views``` directory.
-- Template file names should follow the ```template-name.html``` pattern.
-- Controller and style files should be called like their template file but with ```*.js``` or ```*.import.less``` extension. In this case: ```template-name.js```, ```template-name.import.less```.
-- If templates have some kind of relation with each other they can be grouped in a dedicated directory (```some-page``` and ```some-page-listing``` templates can go in the ```some-page``` directory).
+- Depending on project size and complexity, templates can go in a ```pages``` or ```modules``` directory.
+- Controller and style files should be called like their template file but with ```*.js``` or ```*.import.less``` extension.
+- If templates have some kind of relation with each other, they should be grouped in a dedicated directory (```some-page-item``` and ```some-page-listing``` templates can go in the ```some-page``` directory).
 - Template controller and style files are not required.
-- The base layout file is ```main.html``` in the root of the ```views``` directory. It has two siblings: the controller ```main.js``` and the style ```main.less```.
+- The base layout is created in the ```main.html``` file located in the root of the ```views``` directory.
 - The ```main.less``` file should only contain the ```@import``` of needed ```less``` files.
 - Template files should only contain the template definition (```<template name="..."></template>```) except for the main template file, where we can define the pages ```<head>``` and ```<body>``` tags.
 - Utility files should go in the ```views/utils``` folder like: ```commons.html```, ```utils.js```, ```variables.less```.
 
 ### Routing
-- Route definitions go in the appropriate ```/routes``` directory (depending on where the route is needed: client, server).
-- Routes should only contain these characters: ```A-Z a-z 0-9 - . _ ~ : / ? # [ ] @ ! $ & ' ( ) * + , ; =```. Everything else must be url-encoded
-- If a route part needs to have space, it should be handled with a hyphen: ```page/need-some-space/whoho```.
+- Route definitions go in the appropriate ```routes``` directory (depending on where the route is needed: client or server).
+- Controller files should be created in the appropriate ```routes/controllers``` directory.
+- Plugins should go in ```plugins.js``` file in the ```routes``` directory.
+- If an URL part needs to have space, it should be handled with a hyphen: ```page/need-some-space/whoho```.
 
 ### Collections
-- Collection definitions go in the appropriate ```/collections``` directory (depending on where the collection is needed: client, server or both).
+- Core collection definitions should go in the ```lib/collections``` directory. This way collections are created in **MongoDB** and in **minimongo** as well (enabling the [Optimistic UI](http://info.meteor.com/blog/optimistic-ui-with-meteor-latency-compensation) feature of Meteor).
+- Publications, allow and deny rules should be created on the server: ```server/collections```.
+- Subscriptions to publications are done on the client where it is needed, no need to group this kind of logic into separate files. We can subscribe to publications globally, but in a lot of cases we should only subscribe when we need data (controller actions for example). This way a subscriptions lifecycle is under control.
+- File names of collection definition and rules should represent the name of the collection.
 
 ### Testing
 - The app uses [Jasmine](http://jasmine.github.io/) as a testing library.

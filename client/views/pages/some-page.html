@@ -4,16 +4,11 @@
     {{#if param}}
       <p>Param: {{param}}</p>
     {{/if}}
-    {{#if query}}
-      <p>Query string(s):</p>
-      <ul>
-        {{#each query}}
-          <li>{{this.key}}: {{this.value}}</li>
-        {{/each}}
-      </ul>
-    {{/if}}
     {{#if hash}}
       <p>Hash string: {{hash}}</p>
+    {{/if}}
+    {{#if someSessionData}}
+      <p>Session data: {{someSessionData}}</p>
     {{/if}}
   </div>
 </template>
