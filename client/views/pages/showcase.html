@@ -1,5 +1,6 @@
-<template name="somePage">
-  <div class="some-page">
+<!-- A showcase page for showcase. :) -->
+<template name="showcase">
+  <div class="showcase page">
     <p>Some page</p>
     {{#if param}}
       <p>Param: {{param}}</p>
@@ -11,4 +12,5 @@
       <p>Session data: {{someSessionData}}</p>
     {{/if}}
   </div>
+  <a href="{{pathFor 'home'}}">Go to the home page</a>
 </template>

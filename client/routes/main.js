@@ -5,30 +5,31 @@ Router.configure({
   loadingTemplate: 'preloader',
 });
 
-// Use the 'authorize' plugin for the specified route only.
-Router.plugin('authorize', {
-  only: [
-    'someProtectedPage'
-  ]
-  // except: [
-  //   'someNotProtectedPage'
-  // ]
-});
-
-// A basic routes
+// Route definitions.
 Router.route('/', {
   name: 'home',
   template: 'home'
 });
 
-Router.route('/some-page', {
-  name: 'somePage',
-  // If not specified, the route would use 'SomePageController'.
-  controller: 'SomeController'
+Router.route('/showcase', {
+  // Defaults to 'showcase'.
+  // name: 'renamedShowcase',
+  // Defaults to 'ShowcaseController'.
+  // controller: 'RenamedShowcaseController'
 });
 
 // Route with a paramater accessed via 'this.params.someParam'.
-Router.route('/some-page/:someParam', {
-  name: 'somePageWithParam',
-  controller: 'SomeController'
+Router.route('/showcase/:someParam', {
+  name: 'showcaseWithParam',
+  template: 'showcase',
+  data: function() {
+    return {
+      param: this.params.someParam
+    };
+  }
+});
+
+// A protected route (protected hook defined in: hooks.js).
+Router.route('/admin/showcase', {
+  name: 'adminShowcase'
 });

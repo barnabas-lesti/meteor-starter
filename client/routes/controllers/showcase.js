@@ -1,6 +1,6 @@
-SomeController = RouteController.extend({
+ShowcaseController = RouteController.extend({
   // Template to render.
-  template: 'somePage',
+  template: 'showcase',
   // Subscribes when the route is called, unsubscribes when navigated elsewhere.
   // Called before core hooks. Could be 'subscriptions', that way the loading
   // indicator would not be shown.

@@ -1,12 +1,13 @@
 # Meteor Starter application
 
-The application is created to help quickly bootstrap a meteor application. It has friendly ecosystem, created according to the [Meteor docs](http://docs.meteor.com/) and other useful things found on the internet, regarding this new awesome technology.
+The application is created to help quickly bootstrap a meteor application. It has friendly ecosystem, created according to the [Meteor docs](http://docs.meteor.com/) and other useful things found regarding this awesome technology.
 
 ## Packages
-- The base of the app is the [meteor-platform](https://atmospherejs.com/meteor/meteor-platform) package.
+- The base of the app is the [meteor-platform](https://atmospherejs.com/meteor/meteor-platform) package. We can remove this and only add the packages we need from it.
 - The [autopublish](https://atmospherejs.com/meteor/autopublish) and [insecure](https://atmospherejs.com/meteor/insecure) packages have been removed.
 - CSS precompilation is done with [less](https://atmospherejs.com/meteor/less).
 - Router of the app is [iron:router](https://atmospherejs.com/iron/router).
+- User management with [accounts-password](https://atmospherejs.com/meteor/accounts-password).
 - Unit testing is done via [sanjo:jasmine](https://atmospherejs.com/sanjo/jasmine) (reporting: [velocity:html-reporter](https://atmospherejs.com/velocity/html-reporter)).
 
 ## Meteor behavior
@@ -43,26 +44,26 @@ The application is created to help quickly bootstrap a meteor application. It ha
 - Classes and other higher elevation objects should be upper camel cased: ```SomeGodlikeCreation```.
 - Non objects, file names and string literals (classes, id-s, page names, etc.) should follow a hyphened pattern: ```name-like-this```.
 - Object structure in a string literal should use dot notation: ```name="someObj.someProp"```.
+- For readability, lines in files should not be longer than 80 characters.
 
 ### Templates
 - Templates and their controllers and style files go in the ```client/views``` directory.
-- Depending on project size and complexity, templates can go in a ```pages``` or ```modules``` directory.
-- Controller and style files should be called like their template file but with ```*.js``` or ```*.import.less``` extension.
+- Depending on project size and complexity, templates can go in a ```pages```, ```modules```, ```components``` directory.
+- Controller and style files should be called like their template file but with ```*.js``` or ```*.import.less``` extension, and allocated to the proper directory. For example the LESS file for ```views/pages/showcase.html``` should be in ```styles/pages/showcase.import.less``` and the script file in ```scripts/pages/showcase.js```.
 - If templates have some kind of relation with each other, they should be grouped in a dedicated directory (```some-page-item``` and ```some-page-listing``` templates can go in the ```some-page``` directory).
-- Template controller and style files are not required.
+- Template script (controller) and style files are not required.
 - The base layout is created in the ```main.html``` file located in the root of the ```views``` directory.
 - The ```main.less``` file should only contain the ```@import``` of needed ```less``` files.
-- Template files should only contain the template definition (```<template name="..."></template>```) except for the main template file, where we can define the pages ```<head>``` and ```<body>``` tags.
-- Utility files should go in the ```views/utils``` folder like: ```commons.html```, ```utils.js```, ```variables.less```.
+- Template files should only contain the template definition: ```<template name="..."></template>```.
+- Utility files should go in the proper ```utils``` folder.
 
 ### Routing
-- Route definitions go in the appropriate ```routes``` directory (depending on where the route is needed: client or server).
+- Route definitions go in the ```routes``` directory (depending on where the route is needed: client or server).
 - Controller files should be created in the appropriate ```routes/controllers``` directory.
-- Plugins should go in ```plugins.js``` file in the ```routes``` directory.
 - If an URL part needs to have space, it should be handled with a hyphen: ```page/need-some-space/whoho```.
 
 ### Collections
-- Core collection definitions should go in the ```lib/collections``` directory. This way collections are created in **MongoDB** and in **minimongo** as well (enabling the [Optimistic UI](http://info.meteor.com/blog/optimistic-ui-with-meteor-latency-compensation) feature of Meteor).
+- Core collection definitions should go in the ```lib/collections``` directory or file, if it only contains the collection definitions. This way collections are created in **MongoDB** and in **minimongo** as well (enabling the [Optimistic UI](http://info.meteor.com/blog/optimistic-ui-with-meteor-latency-compensation) feature of Meteor).
 - Publications, allow and deny rules should be created on the server: ```server/collections```.
 - Subscriptions to publications are done on the client where it is needed, no need to group this kind of logic into separate files. We can subscribe to publications globally, but in a lot of cases we should only subscribe when we need data (controller actions for example). This way a subscriptions lifecycle is under control.
 - File names of collection definition and rules should represent the name of the collection.
