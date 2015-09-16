@@ -10,8 +10,12 @@ The application is created to help quickly bootstrap a meteor application. It ha
 - User management with [accounts-password](https://atmospherejs.com/meteor/accounts-password).
 - Unit testing is done via [sanjo:jasmine](https://atmospherejs.com/sanjo/jasmine) (reporting: [velocity:html-reporter](https://atmospherejs.com/velocity/html-reporter)).
 
-## Meteor behavior
-### File structure
+## Environment configuration
+- Environment specific configuration is stored in ```settings.{env}.json``` files. The ```settings.prod.json``` is gitignored for security reasons, It's advised not to change this behavior.
+- The ```private``` object in a settings file is only for readability. By default all variables are private (can be accessed only on the server).
+- The application has a ```package.json``` file that contains ```npm``` commands to start the application. For example ```npm run dev``` will start the app with the ```settings.dev.json``` environment specific configuration. To access a settings variable in the app, use ```Meteor.settings.variableName```.
+
+## File structure
 - **Deeper files** are always loaded **first**.
 - ```main.*``` files are loaded **last** in the current directory level.
 - ```*.html``` files are always loaded **before other files**.
@@ -24,20 +28,18 @@ The application is created to help quickly bootstrap a meteor application. It ha
 - Files in the ```tests``` top-level directory are not loaded anywhere.
 - Any other folder or file is loaded on both the client and the server.
 
-### Templates
+## Templates
 - Files are automatically loaded, no need for imports.
 - ```<head>``` and ```<body>``` tags that Meteor founds in the project are concatenated.
 - ```*.less``` files are automatically compiled to ```*.css``` files and attached to the webapp. To prevent this default behavior, we need to use the ```.import.less``` extension for our ```less``` files.
 
-### Routing
+## Routing
 - By default routes are defined on the client.
 - Routes should not be defined for both sides (both sided source is accessible from the client).
 - A good practice is to keep client side routes in the ```client/routes``` directory, server side routes in the ```server/routes``` prefixed with a ```{ where: 'server' }``` object (this way server side routes are protected and the app can behave more like a SPA app thanks to the client side routing).
 
-### Testing
+## Testing
 - [Velocity](https://velocity.readme.io/) is Meteors officially supported testing framework (Velocity by on its own does not include any testing libraries).
-
-***
 
 ## Application conventions (personal preference)
 - Basic object names should follow the lower camel case pattern: ```someBasicOnject```.
