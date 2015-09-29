@@ -3,6 +3,6 @@
   "scripts": {
     "dev": "meteor --settings settings.dev.json",
     "staging": "meteor --settings settings.prod.json",
-    "prod": "meteor --settings settings.prod.json",
+    "prod": "meteor --settings settings.prod.json"
   }
 }
